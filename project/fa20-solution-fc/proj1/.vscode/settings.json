@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "iosfwd": "c",
+        "inttypes.h": "c",
+        "imageloader.h": "c",
+        "__tuple": "c",
+        "array": "c",
+        "algorithm": "c"
+    }
+}
