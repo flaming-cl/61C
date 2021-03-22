@@ -1,12 +1,5 @@
-#### 1. Finished:
-a) videos: lecture 12 RISC-V Instruction Formats II   
-b) project: project 1
-
-### 2. Review
-a) Lecture 1 - 5    
-The 20fa videos are so great, and I realized I missed some important details from the 19fa videos.
-
 ### Summary for Project1:
+I feel this assignment is mainly about C memory management and pointers. So knowing what they've taught about C through the course is enough.
 ### A1: load image
 #### 1. read an image file by its filename
 #### 2. create an Image struct and fill your Image struct with data from the input image file.
@@ -80,3 +73,16 @@ Although we are using a linear data structure to store our cell data, we have to
 4) if a surrounding cell is a alive, aliveNeighbor++
 
 Tip: DON’T CHANGE the state of each cell in the original image.
+
+## C programming notes
+1. check if a specific bit of a hex number is 0
+```c
+if (rule & (1 << bit) == 0)
+```
+2. allocate an array of pointers
+```c
+int len = 3;
+uint8_t **p = (uint8_t **) malloc(sizeof(uint8_t *) * len);
+```
+3. format specifiers
+https://www.geeksforgeeks.org/format-specifiers-in-c/

@@ -115,6 +115,7 @@ Color *evaluateOneCell(Image *image, int row, int col, uint32_t rule)
 		}
 	}
 
+	free(p);
 	return nextGen;
 }
 
