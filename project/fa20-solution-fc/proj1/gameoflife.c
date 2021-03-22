@@ -50,9 +50,6 @@ void mallocFailed(Image *imageCurrentGen, Image *imageNextGen, int shouldFreeNex
 
 int getPosInEachDirection(int currentPos, int index, int base, int isCol) {
 	int newRowPos = currentPos + NEIGHBOR_POS[index][isCol];
-	if (newRowPos < 0) {
-		printf("{%d}", index);
-	}
 	if ((newRowPos > -1) && (newRowPos <= base)) {
 		// check if the pos is out of the image boundry
 		return (newRowPos + base) % base;
