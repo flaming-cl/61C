@@ -1,0 +1,9 @@
+1. gcc -g -o pname program
+2. b [file:] function/line 
+3. n //next line, stepping over 
+4. s //next line, stepping into 
+5. c
+6. p expr //print expression
+7. display
+8. display [/f] expr
+9. q

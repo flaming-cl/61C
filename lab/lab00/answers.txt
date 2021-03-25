@@ -1,0 +1,8 @@
+1. find filename(root) -name 
+2. jobs
+3. sudo kill jobs -(number or name)
+4. wdiff file1 file2
+5. mv source target
+6. chmod u+x file
+7. pwd
+8. ping
