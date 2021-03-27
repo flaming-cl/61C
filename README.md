@@ -1,4 +1,4 @@
-# Self learning records of CS61C
+# CS61C
 
 ### Projects (FA20)
 - Game of Life
