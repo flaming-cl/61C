@@ -9,20 +9,14 @@ int ll_has_cycle(node *head) {
 	hare.next = head;
 
 	do{ /*hit different nodes, acylic*/
-		hare.next = hare.next->next;
+		hare = *hare.next->next;
 		if (!hare.next) {
-			return 0; //false
-		} else {
-			hare.next = hare.next->next;
-			if (!hare.next){
-				return 0;
-			} else {
-				continue;
-			}
+			return 0;
 		}
-		tortoise.next = tortoise.next->next;
+		tortoise = *tortoise.next;
+		
 	} while (tortoise.next != hare.next);
 
 	return 1;
 		
-
+}
