@@ -25,75 +25,60 @@
 //Make sure that you close the file with fclose before returning.
 Image *readData(char *filename) 
 {
-	uint32_t* rows;
-	uint32_t* cols;
-	uint32_t* scale;
-	Color **image;
-	
 	FILE *fp = fopen(filename, "r");
-	fscanf(fp, "%u %u %u", rows, cols, scale);
-	uint32_t count = *rows * *cols;
-	Color colors[count];
-	Color current;
-	uint8_t *R, *G, *B;
+	Image *img = (Image*)malloc(sizeof(Image));	
+	char format[2];
+	int val;
+	fscanf(fp, "%s %u %u %u",format, &(img->rows), &(img->cols), &val);
+
+	uint32_t count = img->rows * img->cols;
 	int i = 0;
-	while (i < count){
-		fscanf(fp, "%hhu %hhu %hhu", R, G, B);
-		current = colors[i];
-		current.R = *R;
-		current.G = *G;
-		current.B = *B;
+	while (i < count) {
+		img->image[i] = (Color*)malloc(sizeof(Color));
+		Color *pix = *(img->image + i);
+		fscanf(fp, "%hhu %hhu %hhu", &(pix->R), &(pix->G), &(pix->B));
 		i += 1;
 	}
-	
-	image = colors;
 	fclose(fp);
+	return img;
 }
 
 //Given an image, prints to stdout (e.g. with printf) a .ppm P3 file with the image's data.
 void writeData(Image *image)
 {
-	uint32_t rows;
-	uint32_t cols;
-	uint32_t scale;
-	Color *curs;
-	rows = image->rows;
-	cols = image->cols;
-	curs = image->image;
-	scale = 255;
-
 	printf("P3\n");
-	printf("%u %u\n", rows, cols);
-	printf("%u\n", scale);
+	printf("%u %u\n", image->rows, image->cols);
+	printf("%u\n", 255);
 
-	int r = 0;
-	int c = 0;
-	int i = 0;
-	while (c < cols){
-		while (r < rows){
-			Color curr = curs[i];
-			printf("%u %u %u", curr.R, curr.G, curr.B);
-			if (r == rows - 1){
+	uint32_t count = image->rows * image->cols;
+	int r = 0; 	int i = 0;
+	while (i < count) {
+		while (r < image->rows){
+			Color *pix = *(image->image + i);
+			printf("%hhu %hhu %hhu", pix->R, pix->G, pix->B);
+			r += 1;
+			if (r == image->rows - 1){
 				printf("\n");
 			} else {
 				printf("   ");
 			}
-			r += 1;
-			i += 1;
 		}
-		c += 1;
+		i += 1;
 	}
-	printf("\n");
-
 }
 
 //Frees an image
 void freeImage(Image *image)
 {
-	Image *countImage = (Image*) malloc(sizeof(Image));
-	countImage->image = malloc(sizeof(uint8_t) * image->rows * image->cols);
-	writeData(image);
-
+	int i = 0;
+	while (i < image->rows * image->cols){
+		Color *pix = *(image->image + i);
+		if (!pix){
+			break;
+		} else {
+			free(pix);
+		}
+	}
 	free(image->image);
-	free(countImage);
+	free(image);
 }
