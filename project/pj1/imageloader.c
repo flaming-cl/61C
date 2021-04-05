@@ -20,6 +20,7 @@
 #include <string.h>
 #include "imageloader.h"
 
+
 //Opens a .ppm P3 image file, and constructs an Image object. 
 //You may find the function fscanf useful.
 //Make sure that you close the file with fclose before returning.
@@ -29,9 +30,10 @@ Image *readData(char *filename)
 	Image *img = (Image*)malloc(sizeof(Image));	
 	char format[2];
 	int val;
-	fscanf(fp, "%s %u %u %u",format, &(img->rows), &(img->cols), &val);
+	fscanf(fp, "%s %u %u %u",format, &(img->cols), &(img->rows), &val);
 
 	uint32_t count = img->rows * img->cols;
+	img->image = (Color**)malloc(sizeof(Color*) * count);
 	int i = 0;
 	while (i < count) {
 		img->image[i] = (Color*)malloc(sizeof(Color));
@@ -47,21 +49,18 @@ Image *readData(char *filename)
 void writeData(Image *image)
 {
 	printf("P3\n");
-	printf("%u %u\n", image->rows, image->cols);
+	printf("%u %u\n", image->cols, image->rows);
 	printf("%u\n", 255);
 
 	uint32_t count = image->rows * image->cols;
-	int r = 0; 	int i = 0;
+	int i = 0;
 	while (i < count) {
-		while (r < image->rows){
-			Color *pix = *(image->image + i);
-			printf("%hhu %hhu %hhu", pix->R, pix->G, pix->B);
-			r += 1;
-			if (r == image->rows - 1){
-				printf("\n");
-			} else {
-				printf("   ");
-			}
+		Color *pix = *(image->image + i);
+		printf("%3hhu %3hhu %3hhu", pix->R, pix->G, pix->B);
+		if ((i + 1) % image->cols == 0){
+			printf("\n");
+		} else {
+			printf("   ");
 		}
 		i += 1;
 	}
@@ -78,6 +77,7 @@ void freeImage(Image *image)
 		} else {
 			free(pix);
 		}
+		i += 1;
 	}
 	free(image->image);
 	free(image);
