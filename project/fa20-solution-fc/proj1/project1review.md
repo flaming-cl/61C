@@ -78,11 +78,27 @@ Tip: DON’T CHANGE the state of each cell in the original image.
 1. check if a specific bit of a hex number is 0
 ```c
 if (rule & (1 << bit) == 0)
+// in C++, use std::bitset.
 ```
 2. allocate an array of pointers
 ```c
 int len = 3;
 uint8_t **p = (uint8_t **) malloc(sizeof(uint8_t *) * len);
 ```
-3. format specifiers
+3. convert to int\string
+```c
+sprintf \\ int to string
+strtol \\ string to int
+```
+4. Error: Undefined symbols for architecture x86_64
+Possible Reason: a certain lib not included / linker problems
+
+5. exit V.S. return
+**exit()** can terminate the whole program 
+**return** returns from the current function
+
+6. return array
+[return-an-array-in-c](https://www.javatpoint.com/return-an-array-in-c)
+
+7. format specifiers
 https://www.geeksforgeeks.org/format-specifiers-in-c/
