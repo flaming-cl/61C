@@ -25,12 +25,12 @@ classify:
     # ARGC CHECK & PROLOGUE
     # =====================================
     
-	#argc check
-	li t0, 5
+    #argc check
+    li t0, 5
     bne a0, t0, argc_invalid
     
-	#prologue:
-	addi sp, sp, -52
+    #prologue:
+    addi sp, sp, -52
     sw s11, 48(sp)
     sw s10, 44(sp)
     sw s9, 40(sp)
@@ -44,46 +44,46 @@ classify:
     sw s1, 8(sp)
     sw s0, 4(sp)
     sw ra, 0(sp)
-    li s0, 4						  # s0: size of int	                    
+    li s0, 4			      # s0: size of int	                    
     mv s1, a1                         # s1: argv
     mv s2, a2                         # s2: print classification flag
     
-	# =====================================
+    # =====================================
     # LOAD MATRICES
     # =====================================
     
     # Load pretrained m0
-	li a0, 8
+    li a0, 8
     jal malloc
     beq a0, x0, malloc_failed
     mv s3, a0                          # s3: pointer - m0 rows & cols
     lw a0, 4(s1)                       # read_matrix a0: file name, argv[1]
-	mv a1, s3						   # read_matrix a1: pointer for storing rows
-    add a2, s3, s0					   # read_matrix a2: pointer for storing cols
-	jal read_matrix
-    mv s4, a0						   # s4: pointer - m0 matrix
+    mv a1, s3			       # read_matrix a1: pointer for storing rows
+    add a2, s3, s0		       # read_matrix a2: pointer for storing cols
+    jal read_matrix
+    mv s4, a0			       # s4: pointer - m0 matrix
     
     # Load pretrained m1
-	li a0, 8
+    li a0, 8
     jal malloc
     beq a0, x0, free_memory_and_exit   # if malloc fails, free previously allocated memory in heap
     mv s5, a0                          # s5: pointer - m1 rows & cols
     lw a0, 8(s1)                       # read_matrix a0: file name, argv[1]
-	mv a1, s5						   # read_matrix a1: pointer for storing rows
-    add a2, s5, s0					   # read_matrix a2: pointer for storing cols
-	jal read_matrix
-    mv s6, a0						   # s6: pointer - m1 matrix
+    mv a1, s5			       # read_matrix a1: pointer for storing rows
+    add a2, s5, s0		       # read_matrix a2: pointer for storing cols
+    jal read_matrix
+    mv s6, a0			       # s6: pointer - m1 matrix
 
     # Load input matrix
-	li a0, 8
+    li a0, 8
     jal malloc
     beq a0, x0, free_memory_and_exit
     mv s7, a0                          # s7: pointer - input rows & cols
     lw a0, 12(s1)                      # read_matrix a0: file name, argv[1]
-	mv a1, s7						   # read_matrix a1: pointer for storing rows
-    add a2, s7, s0					   # read_matrix a2: pointer for storing cols
-	jal read_matrix
-    mv s8, a0						   # s8: pointer - input matrix
+    mv a1, s7			       # read_matrix a1: pointer for storing rows
+    add a2, s7, s0		       # read_matrix a2: pointer for storing cols
+    jal read_matrix
+    mv s8, a0			       # s8: pointer - input matrix
 
     # =====================================
     # RUN LAYERS
@@ -113,10 +113,10 @@ classify:
     jal relu                             # s10: ReLU(m0 * input)
     
     # 3. LINEAR LAYER:    m1 * ReLU(m0 * input)
-	lw a0, 0(s5)                         # rows of m1
+    lw a0, 0(s5)                         # rows of m1
     lw t0, 4(s7)                         # cols of ReLU(m0 * input)
     mul a0, a0, t0
-	slli a0, a0, 2						 
+    slli a0, a0, 2						 
     jal malloc
     beq a0, x0, free_memory_and_exit
     mv s11, a0                           # s11: pointer - array m1 * ReLU(m0 * input)
@@ -135,7 +135,7 @@ classify:
     # =====================================
     
     # Write output matrix
-	lw a0, 16(s1)
+    lw a0, 16(s1)
     mv a1, s11
     lw a2, 0(s5)
     lw a3, 4(s7)
@@ -146,9 +146,9 @@ classify:
     # =====================================
     
     # Call argmax
-	mv a0, s11
+    mv a0, s11
     lw a1, 0(s5)
-	jal argmax
+    jal argmax
     mv s0, a0
     
     # Print classification
@@ -157,16 +157,16 @@ classify:
     jal print_int
     
     # Print newline afterwards for clarity
-	li a1 '\n'
+    li a1 '\n'
     jal print_char
     
 end:
     # =====================================
     # FREE MEMORY & EPILOGUE & RETURN
     # =====================================
-	mv a0, s0
+    mv a0, s0
 
-	#free memory
+    #free memory
     mv a0, s3
     jal free
     mv a0, s5
@@ -196,7 +196,7 @@ end:
     
     ret
 free_memory_and_exit:
-	beq s3, x0, malloc_failed
+    beq s3, x0, malloc_failed
     mv a0, s3
     jal free
     
@@ -216,8 +216,8 @@ free_memory_and_exit:
     mv a0, s1
     jal free
 argc_invalid:
-	li a1, 89
+    li a1, 89
     j exit2
 malloc_failed:
-	li a1, 88
+    li a1, 88
     j exit2
