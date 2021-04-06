@@ -31,7 +31,7 @@ matmul:
     ble a4, x0, invalid_dimensions_m1
     bne a2, a4, invalid_dimensions_match # c(r x q) = A(r x p) * B(p x q)
 # prologue:
-	addi sp, sp, -40
+    addi sp, sp, -40
     sw s0, 0(sp)
     sw s1, 4(sp)
     sw s2, 8(sp)
@@ -52,38 +52,38 @@ matmul:
     mv s7, x0                            # s7: i = 0 
     mv s8, x0                            # s8: j = 0
 loop_start:
-	mv a0, s0     						 # a0 = m0
-    mv a1, s3     				         # a1 = m1
-    mv a2, s2     						 # a2 = col of m0
-    li a3, 1     						 # a3 = 1, m0 stride
-    mv a4, s5     						 # a4 = col of m1, m1 stride
+    mv a0, s0     			 # a0 = m0
+    mv a1, s3     			 # a1 = m1
+    mv a2, s2     			 # a2 = col of m0
+    li a3, 1     			 # a3 = 1, m0 stride
+    mv a4, s5     			 # a4 = col of m1, m1 stride
     
-    jal dot     						 # get dot product
+    jal dot     			 # get dot product
     
-    sw a0, 0(s6)     				     # sum += result of dot product
+    sw a0, 0(s6)     			 # sum += result of dot product
     addi s6, s6, 4
     
-    addi s8, s8, 1						 # j += 1
+    addi s8, s8, 1			 # j += 1
     beq s8, s5, inner_loop_end           # j = col of m1, stop inner loop
     
-    addi s3, s3, 4						 # go to the next element of m1
+    addi s3, s3, 4			 # go to the next element of m1
 
     j loop_start
 inner_loop_end:
-	addi s7, s7, 1						 # i += 1					     
-    beq s7, s1, outer_loop_end			 # i = row of m1, stop outer loop
+    addi s7, s7, 1			 # i += 1					     
+    beq s7, s1, outer_loop_end		 # i = row of m1, stop outer loop
     
     slli t0, s2, 2
     add s0, s0, t0                       # m0 += col of m0
     
     mv s3, s4                            # current m1 = original m1
 
-    li s8, 0   						     # j = 0
+    li s8, 0   				 # j = 0
     
     j loop_start
 outer_loop_end:
 # epilogue
-	lw s0, 0(sp)
+    lw s0, 0(sp)
     lw s1, 4(sp)
     lw s2, 8(sp)
     lw s3, 12(sp)
@@ -97,11 +97,11 @@ outer_loop_end:
     
     ret
 invalid_dimensions_m0:
-	li a1, 72
+    li a1, 72
     j exit2
 invalid_dimensions_m1:
-	li a1, 73
+    li a1, 73
     j exit2
 invalid_dimensions_match:
-	li a1, 74
+    li a1, 74
     j exit2
