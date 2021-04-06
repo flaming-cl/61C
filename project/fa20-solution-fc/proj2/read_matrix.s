@@ -26,7 +26,7 @@
 # ==============================================================================
 read_matrix:
 #prologue:
-	addi sp, sp, -36
+    addi sp, sp, -36
     sw s0, 0(sp)
     sw s1, 4(sp)
     sw s2, 8(sp)
@@ -38,12 +38,12 @@ read_matrix:
     sw ra, 32(sp)
     li s0, 4                    # s0: size of int
     mv s1, a1                   # s1: a1, pointer, the number of rows
-    mv s2, a2					# s2: a1, pointer, the number of cols
+    mv s2, a2			# s2: a1, pointer, the number of cols
     li s7, 0                    # counter
 #open_file:
     mv a1, a0                   
-	li a2, 0                    
-	jal fopen
+    li a2, 0                    
+    jal fopen
     li t0, -1
     beq a0, t0, fopen_failed
     mv s3, a0                   # s3: fopen return value
@@ -54,24 +54,24 @@ read_matrix:
     jal fread
     bne a0, s0, fread_failed 
     
-	mv a1, s3
+    mv a1, s3
     mv a2, s2
     mv a3, s0
     jal fread
     bne a0, s0, fread_failed 
 
-	lw t0, 0(s1)
+    lw t0, 0(s1)
     lw t1, 0(s2)
     mul s4, t0, t1              # s4: rows * cols
 #allocate_memory:
-	slli t0, s4, 2
-	mv a0, t0
+    slli t0, s4, 2
+    mv a0, t0
     jal malloc
     beq a0, x0, malloc_failed
     mv s5, a0                   # s5: file pointer
     mv s6, a0                   # s6: file pointer
 save_bytes_loop:
-	mv a1, s3
+    mv a1, s3
     mv a2, s5
     mv a3, s0
     jal fread
@@ -101,14 +101,14 @@ loop_end:
     
     ret
 malloc_failed:
-	li a1 88
+    li a1 88
     j exit2
 fopen_failed:
-	li a1 90
+    li a1 90
     j exit2
 fread_failed:
-	li a1 91
+    li a1 91
     j exit2
 fclose_failed:
-	li a1 92
+    li a1 92
     j exit2
