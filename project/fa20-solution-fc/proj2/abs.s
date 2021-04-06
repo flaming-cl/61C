@@ -10,7 +10,7 @@
 # =================================================================
 abs:
     # Prologue
-	# branch if positive
+    # branch if positive
     bge a0, zero, done
     # invert a if negative
     sub a0, zero, a0
