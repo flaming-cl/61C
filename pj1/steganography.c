@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 	char *filename = argv[1];
 	Image *ori_img = readData(filename);
 	Image *update = steganography(ori_img);
-	if (ori_img == NULL || update == NULL || argc != 2) { //errors handling
+	if (argc != 2) { //errors handling
 		exit(-1);
 	} else {
 		writeData(update);

@@ -1,7 +1,7 @@
-1.
-2.
-3.
-4.
-5.
-6.
-7.
+1. clean
+2. all
+3. gcc
+4. c99
+5. var = "FOO" then $(var)
+6. apple:Darwin forms the Unix-based core set of components upon which macOS (previously OS X and Mac OS X), iOS, watchOS, tvOS, and iPadOS are based. It is mostly POSIX-compatible, but has never, by itself, been certified as compatible with any version of POSIX.
+7. 24

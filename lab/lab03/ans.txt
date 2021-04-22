@@ -1,0 +1,4 @@
+1. 
+.data static data,subsequent items put in user data segment(source file datain binary)
+.word store the n 32-bit quantities in successive memory words
+.text machine code
