@@ -34,9 +34,9 @@ void hexToBitsArray(uint32_t rule) {
 	int i;
 	for (i = 0; i < RULE_BITS; i++) {
 		if (i >= (HALF_RULE_BITS)) {
-			ALIVE_CELL_NEXT_STATES[i - HALF_RULE_BITS] = (rule & (1 << i)) ? 1 : 0;
+			ALIVE_CELL_NEXT_STATES[i - HALF_RULE_BITS] = (rule >> i) & 1;
 		} else {
-			DECEASED_CELL_NEXT_STATES[i] = (rule & (1 << i)) ? 1 : 0;
+			DECEASED_CELL_NEXT_STATES[i] = (rule >> i) & 1;
 		}
     }
 }

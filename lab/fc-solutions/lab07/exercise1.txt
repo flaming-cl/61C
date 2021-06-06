@@ -1,0 +1,17 @@
+Scenario 1
+    1. cache size; step size
+    2. 0.0
+    3. array size -> 1
+
+Scenario 2
+    1. 2
+    2. MHHH
+    3. hit rate close to 100%
+
+Scenario 3
+    1. L1 HR 0.5, L2 HR 0, Overall HR 0.33
+    2. L1 accesses 32, L1 misses 16
+    3. L2 accesses 16
+    4. rep count
+    5. +number of blocks in L1 —> L1 0.5, L2 0
+       +the L1 block size —> L1 0.5, L2 0.5
