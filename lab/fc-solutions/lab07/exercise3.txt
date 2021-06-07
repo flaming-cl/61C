@@ -7,8 +7,8 @@ Part 1
     blocksize = 20, n = 5000: 
     blocksize = 20, n = 10000: 
 
-    Checkoff Question 1:
-    Checkoff Question 2:
+    Checkoff Question 1: from the points given above, when n is equal to 1000, cache blocked version of transpose become faster than the original one.
+    Checkoff Question 2: maybe because when dealing with small size matrixes, these operations have been performed within L1, which would generally results in a high speed performance
 
 Part 2
     blocksize = 50, n = 10000:
@@ -17,4 +17,4 @@ Part 2
     blocksize = 1000, n = 10000:
     blocksize = 5000, n = 10000:
 
-    Checkoff Question 3:
+    Checkoff Question 3: Its performance shown as a U shaped diagram. This is because larger block size can lead to larger miss penalty.
